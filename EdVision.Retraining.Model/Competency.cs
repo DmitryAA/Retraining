@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdVision.Retraining.Model {
     public enum CompetencyType {
@@ -48,8 +50,14 @@ namespace EdVision.Retraining.Model {
     }
 
     public class Competency {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public CompetencyType Type { get; set; }
 
         public Competency(string name, CompetencyType type) {

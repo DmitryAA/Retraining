@@ -1,10 +1,20 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdVision.Retraining.Model {
     public class JobTitleCompetency {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [Required]
         public Competency Competency { get; set; }
+
+        [Required]
         public double Level { get; set; }
+
+        [Required]
         public double Weight { get; set; }
 
         public JobTitleCompetency(Competency competency, double level, double weight) {

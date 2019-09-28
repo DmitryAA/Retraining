@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdVision.Retraining.Model {
-    public class EmployeeCompetency {
+    public class CourseOutCompetency {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
@@ -14,8 +14,8 @@ namespace EdVision.Retraining.Model {
         [Required]
         public double Level { get; set; }
 
-        public EmployeeCompetency(Competency competency, double level) {
-            Id = IdHelper.Instance.GetNextId<EmployeeCompetency>();
+        public CourseOutCompetency(Competency competency, double level) {
+            Id = IdHelper.Instance.GetNextId<CourseOutCompetency>();
             Competency = competency;
             if (Competency.IsValid(level)) {
                 Level = level;
@@ -24,9 +24,7 @@ namespace EdVision.Retraining.Model {
             }
         }
 
-        public EmployeeCompetency() {
-            
-        }
+        public CourseOutCompetency() { }
 
         public override string ToString() {
             return $"{{id: {Id}, competency: {{ name: {Competency.Name}; type: {Competency.Type}}}; level: {Level}}}";

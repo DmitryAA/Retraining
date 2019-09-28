@@ -54,7 +54,7 @@ namespace EdVision.Retraining.Controllers {
             context.Employees
                 .Include(e => e.Competencies).ThenInclude(c => c.Competency)
                 .Include(e => e.CourseResults).ThenInclude(cr => cr.Course)
-                .Include(e => e.JobTitle)
+                .Include(e => e.JobHistory).ThenInclude(jhi => jhi.Title)
                 .ToList();
     }
 }
