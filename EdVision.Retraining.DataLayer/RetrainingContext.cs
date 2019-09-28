@@ -2,11 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace EdVision.Retraining.DataLayer {
-    public class RetrainingContext: DbContext {
+    public class RetrainingContext : DbContext {
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<EmployeeCompetency> EmployeeCompetencies { get; set; }
         public DbSet<JobTitle> JobTitles { get; set; }
+        public DbSet<JobTitleCompetency> JobTitleCompetencies { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Competency> Competencies { get; set; }
+        public DbSet<Direction> Directions { get; set; }
+
 
         public RetrainingContext(DbContextOptions options) : base(options) { }
 
@@ -41,7 +45,7 @@ namespace EdVision.Retraining.DataLayer {
 
             var employeeCompetency = modelBuilder.Entity<EmployeeCompetency>();
             employeeCompetency.HasKey(ec => ec.Id);
-            employeeCompetency.Property(ec => ec.Id).ValueGeneratedOnAdd();
+            //employeeCompetency.Property(ec => ec.Id).ValueGeneratedOnAdd();
             employeeCompetency.HasOne(ec => ec.Competency).WithOne().HasPrincipalKey<Competency>(c => c.Id);
 
             var jobTitle = modelBuilder.Entity<JobTitle>();
@@ -51,8 +55,8 @@ namespace EdVision.Retraining.DataLayer {
             jobTitle.HasMany(t => t.RequiredCompetency).WithOne().HasPrincipalKey(t => t.Id);
 
             var jobTitleCompetency = modelBuilder.Entity<JobTitleCompetency>();
-            jobTitleCompetency.Property(c => c.Id).ValueGeneratedOnAdd();
             jobTitleCompetency.HasKey(c => c.Id);
+            //jobTitleCompetency.Property(c => c.Id).ValueGeneratedOnAdd();
             jobTitleCompetency.HasOne(c => c.Competency).WithOne().HasPrincipalKey<Competency>(c => c.Id);
         }
     }

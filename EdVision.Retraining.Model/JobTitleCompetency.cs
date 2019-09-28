@@ -8,6 +8,7 @@ namespace EdVision.Retraining.Model {
         public double Weight { get; set; }
 
         public JobTitleCompetency(Competency competency, double level, double weight) {
+            Id = IdHelper.Instance.GetNextId<JobTitleCompetency>();
             Competency = competency;
             if (Competency.IsValid(level)) {
                 Level = level;

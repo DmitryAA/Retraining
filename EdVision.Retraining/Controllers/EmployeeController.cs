@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EdVision.Retraining.DataLayer;
 using EdVision.Retraining.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EdVision.Retraining.Controllers {
     [Route("api/[controller]")]
@@ -19,13 +20,17 @@ namespace EdVision.Retraining.Controllers {
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<Employee>> Get() {
-            return context.Employees;
+            return Ok(LoadImpoyees());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<Employee> Get(int id) {
-            return context.Employees.Find(id);
+            var employee = LoadImpoyees().FirstOrDefault(e => e.Id == id);
+            if (employee == null) {
+                return NoContent();
+            }
+            return Ok(employee);
         }
 
         // POST api/values
@@ -44,5 +49,12 @@ namespace EdVision.Retraining.Controllers {
         //[HttpDelete("{id}")]
         //public void Delete(int id) {
         //}
+
+        List<Employee> LoadImpoyees() =>
+            context.Employees
+                .Include(e => e.Competencies).ThenInclude(c => c.Competency)
+                .Include(e => e.CourseResults).ThenInclude(cr => cr.Course)
+                .Include(e => e.JobTitle)
+                .ToList();
     }
 }

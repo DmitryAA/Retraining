@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace EdVision.Retraining.Model {
     public class JobTitle {
@@ -11,8 +10,17 @@ namespace EdVision.Retraining.Model {
 
         public ICollection<JobTitleCompetency> RequiredCompetency { get; set; }
 
+        public JobTitle(string name, Direction direction): this() {
+            Name = name;
+            Direction = direction;
+        }
+
         public JobTitle() {
             RequiredCompetency = new HashSet<JobTitleCompetency>();
+        }
+
+        public void AddRequiredCompetency(Competency competency, double level, double weight) {
+            RequiredCompetency.Add(new JobTitleCompetency(competency, level, weight));
         }
     }
 }

@@ -6,6 +6,7 @@ namespace EdVision.Retraining.Model {
         public double Level { get; set; }
 
         public EmployeeCompetency(Competency competency, double level) {
+            Id = IdHelper.Instance.GetNextId<EmployeeCompetency>();
             Competency = competency;
             if (Competency.IsValid(level)) {
                 Level = level;
@@ -16,6 +17,10 @@ namespace EdVision.Retraining.Model {
 
         public EmployeeCompetency() {
             
+        }
+
+        public override string ToString() {
+            return $"{{id: {Id}, competency: {{ name: {Competency.Name}; type: {Competency.Type}}}; level: {Level}}}";
         }
     }
 }

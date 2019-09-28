@@ -21,7 +21,7 @@ namespace EdVision.Retraining {
                 DataSeeder.Seed(context);
             }
 
-            
+            host.Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

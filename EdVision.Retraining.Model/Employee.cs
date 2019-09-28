@@ -20,9 +20,19 @@ namespace EdVision.Retraining.Model {
 
         public ICollection<CoursePassingResult> CourseResults { get; set; }
 
+        public Employee(string firstName, string middleName, string lastName): this() {
+            FirstName = firstName;
+            MiddleName = middleName;
+            LastName = lastName;
+        }
+
         public Employee() {
             Competencies = new HashSet<EmployeeCompetency>();
             CourseResults = new HashSet<CoursePassingResult>();
+        }
+
+        public void AddCompetency(Competency competency, double level) {
+            Competencies.Add(new EmployeeCompetency(/*IdHelper.Instance.GetNextId<EmployeeCompetency>(), */competency, level));
         }
 
         public void PassCourse(Course course, int grade = 100) {
@@ -33,6 +43,7 @@ namespace EdVision.Retraining.Model {
                 throw new ArgumentException("Most be in (0 - 100) range");
             }
             CourseResults.Add(new CoursePassingResult {
+                Id = IdHelper.Instance.GetNextId<CoursePassingResult>(),
                 Course = course,
                 Grade = grade
             });
