@@ -23,15 +23,25 @@ namespace EdVision.Retraining.Model {
         public double FiringProbability { get; set; }
         [Required]
         public double Efficency { get; set; }
+        [Required]
+        public double Loyality { get; set; }
+
+        // TODO: Useful fields for HRs.
+        //public ICollection<string> UsedBonuses { get; } // Sport, Eng courses, etc.
+        //public ICollection<string> Hobbies { get; }
 
         public ICollection<JobHistoryItem> JobHistory { get; }
         public ICollection<EmployeeCompetency> Competencies { get; }
         public ICollection<CoursePassingResult> CourseResults { get; }
 
-        public Employee(string firstName, string middleName, string lastName, DateTime dateOfBirth, double firingProbability, double efficency): this() {
+        public Employee(string firstName, string middleName, string lastName, DateTime dateOfBirth, double firingProbability, double efficency, double loyality): this() {
             FirstName = firstName;
             MiddleName = middleName;
             LastName = lastName;
+            DateOfBirth = dateOfBirth;
+            FiringProbability = firingProbability;
+            Efficency = efficency;
+            Loyality = loyality;
         }
 
         public Employee() {
@@ -39,31 +49,5 @@ namespace EdVision.Retraining.Model {
             Competencies = new HashSet<EmployeeCompetency>();
             CourseResults = new HashSet<CoursePassingResult>();
         }
-
-        //public void AddCompetency(Competency competency, double level) {
-        //    Competencies.Add(new EmployeeCompetency(/*IdHelper.Instance.GetNextId<EmployeeCompetency>(), */competency, level));
-        //}
-
-        //public void PassCourse(Course course, int grade = 100) {
-        //    if (course == null) {
-        //        throw new ArgumentException("Must not be null", nameof(course));
-        //    }
-        //    if (0 > grade || grade > 100 ) {
-        //        throw new ArgumentException("Most be in (0 - 100) range");
-        //    }
-        //    CourseResults.Add(new CoursePassingResult {
-        //        Id = IdHelper.Instance.GetNextId<CoursePassingResult>(),
-        //        Course = course,
-        //        Grade = grade
-        //    });
-        //}
-
-        //public ICollection<SoftSkill> SoftSkills { get; set; }
-        //public JobTitle ActualJobTitle { get; set; }
-        //public int YearsInCompany { get; set; }
-        //public ICollection<string> Education { get; set; }
-        //public ICollection<VolontierExperienceItem> VolonteerExperience { get; set; }
-        //public ICollection<LaborDisciplineViolation> Violations { get; set; }
-        //public ICollection<LaborBonus> LaborBonuses { get; set; }
     }
 }

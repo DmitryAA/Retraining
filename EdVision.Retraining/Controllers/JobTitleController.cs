@@ -20,13 +20,13 @@ namespace EdVision.Retraining.Controllers {
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<JobTitle>> Get() {
-            return Ok(LoadJobtitles());
+            return Ok(context.LoadPositions());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<JobTitle> Get(int id) {
-            var jobTitle = LoadJobtitles().FirstOrDefault(e => e.Id == id);
+            var jobTitle = context.LoadPositions().FirstOrDefault(e => e.Id == id);
             if (jobTitle == null) {
                 return NoContent();
             }
@@ -49,12 +49,5 @@ namespace EdVision.Retraining.Controllers {
         //[HttpDelete("{id}")]
         //public void Delete(int id) {
         //}
-
-        List<JobTitle> LoadJobtitles() =>
-            context.JobTitles
-                .Include(t => t.RequiredCompetency)
-                    .ThenInclude(rc => rc.Competency)
-                .Include(t => t.Direction)
-                .ToList();
     }
 }

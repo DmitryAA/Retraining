@@ -1,4 +1,6 @@
-﻿using EdVision.Retraining.Model;
+﻿using System.Collections.Generic;
+using System.Linq;
+using EdVision.Retraining.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace EdVision.Retraining.DataLayer {
@@ -61,5 +63,27 @@ namespace EdVision.Retraining.DataLayer {
             //jobTitleCompetency.Property(c => c.Id).ValueGeneratedOnAdd();
             jobTitleCompetency.HasOne(c => c.Competency).WithMany().HasPrincipalKey(c => c.Id);
         }
+
+        public List<Employee> LoadEmpoyees() =>
+            Employees
+                .Include(e => e.Competencies).ThenInclude(c => c.Competency)
+                .Include(e => e.CourseResults).ThenInclude(cr => cr.Course)
+                .Include(e => e.JobHistory).ThenInclude(jhi => jhi.Title)
+                .ToList();
+
+        public List<JobTitle> LoadPositions() =>
+            JobTitles
+                .Include(t => t.RequiredCompetency)
+                    .ThenInclude(rc => rc.Competency)
+                .Include(t => t.Direction)
+                .ToList();
+
+        public List<Course> LoadCourses() =>
+            Courses
+                .Include(c => c.RequiredCompetencies)
+                    .ThenInclude(rc => rc.Competency)
+                .Include(c => c.OutputCompetencies)
+                    .ThenInclude(rc => rc.Competency)
+                .ToList();
     }
 }

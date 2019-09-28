@@ -20,13 +20,13 @@ namespace EdVision.Retraining.Controllers {
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<Course>> Get() {
-            return Ok(LoadCourse());
+            return Ok(context.LoadCourses());
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<Course> Get(int id) {
-            var employee = LoadCourse().FirstOrDefault(e => e.Id == id);
+            var employee = context.LoadCourses().FirstOrDefault(e => e.Id == id);
             if (employee == null) {
                 return NoContent();
             }
@@ -49,13 +49,5 @@ namespace EdVision.Retraining.Controllers {
         //[HttpDelete("{id}")]
         //public void Delete(int id) {
         //}
-
-        List<Course> LoadCourse() =>
-            context.Courses
-                .Include(c => c.RequiredCompetencies)
-                    .ThenInclude(rc => rc.Competency)
-                .Include(c => c.OutputCompetencies)
-                    .ThenInclude(rc => rc.Competency)
-                .ToList();
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EdVision.Retraining.API;
 using EdVision.Retraining.DataLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,7 @@ namespace EdVision.Retraining {
                 opt.UseSqlServer("Data Source=188.130.135.206;Initial Catalog=yWay;User ID=yway;Password=yway123;");
                 opt.EnableSensitiveDataLogging();
             });
+            services.AddPositionRecommendationDataProvider(new TimeSpan(2, 0, 0));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
