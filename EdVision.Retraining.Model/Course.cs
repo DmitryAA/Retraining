@@ -8,7 +8,12 @@ namespace EdVision.Retraining.Model {
 
         public Direction Direction { get; set; }
 
-        public IReadOnlyList<EmployeeCompetency> RequiredCompetencies { get; set; }
-        public IReadOnlyList<EmployeeCompetency> OutputCompetencies { get; set; }
+        public ICollection<EmployeeCompetency> RequiredCompetencies { get; set; }
+        public ICollection<EmployeeCompetency> OutputCompetencies { get; set; }
+
+        public Course() {
+            RequiredCompetencies = new HashSet<EmployeeCompetency>();
+            OutputCompetencies = new HashSet<EmployeeCompetency>();
+        }
     }
 }

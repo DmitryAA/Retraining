@@ -27,6 +27,7 @@ namespace EdVision.Retraining.DataLayer {
                         new EmployeeCompetency(competency2, 0.75)
                     }
                 });
+            retrainingContext.SaveChanges();
             retrainingContext.Employees.Add(
                 new Employee {
                     FirstName = "B",
@@ -37,6 +38,7 @@ namespace EdVision.Retraining.DataLayer {
                         new EmployeeCompetency(competency3, 0.5)
                     }
                 });
+            retrainingContext.SaveChanges();
             retrainingContext.Employees.Add(
                 new Employee {
                     FirstName = "C",
@@ -47,6 +49,7 @@ namespace EdVision.Retraining.DataLayer {
                         new EmployeeCompetency(competency3, 0.25)
                     }
                 });
+            retrainingContext.SaveChanges();
             retrainingContext.Employees.Add(
                 new Employee {
                     FirstName = "D",
@@ -57,40 +60,45 @@ namespace EdVision.Retraining.DataLayer {
                         new EmployeeCompetency(competency4, 1)
                     }
                 });
+            retrainingContext.SaveChanges();
 
 
             retrainingContext.JobTitles.Add(
                 new JobTitle {
                     Name = "Job 1",
                     RequiredCompetency = new List<JobTitleCompetency> {
-                        new JobTitleCompetency { Competency = competency1, Level = 0.5, Weight = 1 },
-                        new JobTitleCompetency { Competency = competency2, Level = 0.25, Weight = 1 }
+                        new JobTitleCompetency(competency1, 0.5, 1),
+                        new JobTitleCompetency(competency2, 0.25, 1)
                     }
                 });
+            retrainingContext.SaveChanges();
             retrainingContext.JobTitles.Add(
                 new JobTitle {
                     Name = "Job 2",
                     RequiredCompetency = new List<JobTitleCompetency> {
-                        new JobTitleCompetency { Competency = competency2, Level = 0.25, Weight = 1 },
-                        new JobTitleCompetency { Competency = competency4, Level = 0.5, Weight = 1 }
+                        new JobTitleCompetency(competency2, 0.25, 1),
+                        new JobTitleCompetency(competency4, 0, 1)
                     }
                 });
+            retrainingContext.SaveChanges();
             retrainingContext.JobTitles.Add(
                 new JobTitle {
                     Name = "Job 3",
                     RequiredCompetency = new List<JobTitleCompetency> {
-                        new JobTitleCompetency { Competency = competency3, Level = 0.75, Weight = 1 },
-                        new JobTitleCompetency { Competency = competency4, Level = 0.5, Weight = 1 }
+                        new JobTitleCompetency(competency3, 0.75, 1),
+                        new JobTitleCompetency(competency4, 1, 1)
                     }
                 });
+            retrainingContext.SaveChanges();
             retrainingContext.JobTitles.Add(
                 new JobTitle {
                     Name = "Job 4",
                     RequiredCompetency = new List<JobTitleCompetency> {
-                        new JobTitleCompetency { Competency = competency1, Level = 1, Weight = 1 },
-                        new JobTitleCompetency { Competency = competency4, Level = 0.5, Weight = 1 }
+                        new JobTitleCompetency(competency1, 1, 1),
+                        new JobTitleCompetency(competency4, 0, 1)
                     }
                 });
+            retrainingContext.SaveChanges();
         }
     }
 }

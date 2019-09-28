@@ -16,13 +16,13 @@ namespace EdVision.Retraining.Model {
         public JobTitle JobTitle { get; set; }
 
         public ICollection<EmployeeCompetency> Competencies { get; set; }
-        public ICollection<Course> FinishedCources => _CourseToEmployees.Select(m => m.Course).ToList();
+        public ICollection<Course> FinishedCources => CourseResults.Select(m => m.Course).ToList();
 
-        public ICollection<CourseToEmployeeMapping> _CourseToEmployees { get; set; }
+        public ICollection<CoursePassingResult> CourseResults { get; set; }
 
         public Employee() {
             Competencies = new HashSet<EmployeeCompetency>();
-            _CourseToEmployees = new HashSet<CourseToEmployeeMapping>();
+            CourseResults = new HashSet<CoursePassingResult>();
         }
 
         public void PassCourse(Course course, int grade = 100) {
@@ -32,8 +32,7 @@ namespace EdVision.Retraining.Model {
             if (0 > grade || grade > 100 ) {
                 throw new ArgumentException("Most be in (0 - 100) range");
             }
-            _CourseToEmployees.Add(new CourseToEmployeeMapping {
-                Employee = this,
+            CourseResults.Add(new CoursePassingResult {
                 Course = course,
                 Grade = grade
             });

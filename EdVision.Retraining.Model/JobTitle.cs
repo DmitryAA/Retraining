@@ -9,6 +9,10 @@ namespace EdVision.Retraining.Model {
 
         public bool IsObsolete { get; set; }
 
-        public IList<JobTitleCompetency> RequiredCompetency { get; set; }
+        public ICollection<JobTitleCompetency> RequiredCompetency { get; set; }
+
+        public JobTitle() {
+            RequiredCompetency = new HashSet<JobTitleCompetency>();
+        }
     }
 }
