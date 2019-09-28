@@ -49,7 +49,7 @@ namespace EdVision.Retraining.DataLayer {
             jobTitle4.RequiredCompetency.Add(new JobTitleCompetency(competency2, 0.5, 1));
             jobTitle4.RequiredCompetency.Add(new JobTitleCompetency(competency4, 0, 1));
             retrainingContext.Add(jobTitle4);
-
+            
 
             var course1 = new Course("Course 1", direction1, 100.0);
             course1.RequiredCompetencies.Add(new CourseInCompetency(competency1, 0.25));
@@ -70,7 +70,7 @@ namespace EdVision.Retraining.DataLayer {
             course4.RequiredCompetencies.Add(new CourseInCompetency(competency1, 0));
             course4.OutputCompetencies.Add(new CourseOutCompetency(competency1, 0.25));
             retrainingContext.Add(course4);
-
+            
 
             var employee1 = new Employee("A", "A", "A", new DateTime(1970, 1, 1), 0.2, 0.9);
             employee1.Competencies.Add(new EmployeeCompetency(competency1, 0.5));

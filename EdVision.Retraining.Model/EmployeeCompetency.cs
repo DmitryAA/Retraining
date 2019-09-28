@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace EdVision.Retraining.Model {
     public class EmployeeCompetency {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -15,7 +15,7 @@ namespace EdVision.Retraining.Model {
         public double Level { get; set; }
 
         public EmployeeCompetency(Competency competency, double level) {
-            Id = IdHelper.Instance.GetNextId<EmployeeCompetency>();
+            //Id = IdHelper.Instance.GetNextId<EmployeeCompetency>();
             Competency = competency;
             if (Competency.IsValid(level)) {
                 Level = level;

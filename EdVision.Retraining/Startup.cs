@@ -24,7 +24,8 @@ namespace EdVision.Retraining {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
             services.AddDbContext<RetrainingContext>(opt => {
-                opt.UseInMemoryDatabase("RetrainingDb");
+                /*opt.UseInMemoryDatabase("RetrainingDb");*/
+                opt.UseSqlServer("Data Source=188.130.135.206;Initial Catalog=yWay;User ID=yway;Password=yway123;");
                 opt.EnableSensitiveDataLogging();
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

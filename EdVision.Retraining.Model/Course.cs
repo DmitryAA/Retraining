@@ -25,7 +25,7 @@ namespace EdVision.Retraining.Model {
             Price = price;
         }
         public Course() {
-            Id = IdHelper.Instance.GetNextId<Course>();
+            //Id = IdHelper.Instance.GetNextId<Course>();
             RequiredCompetencies = new HashSet<CourseInCompetency>();
             OutputCompetencies = new HashSet<CourseOutCompetency>();
         }
