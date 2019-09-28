@@ -12,5 +12,13 @@ namespace EdVision.Retraining.Model {
         public DateTime ChangeDate { get; set; }
         [Required]
         public JobTitle Title { get; set; }
+
+        public JobHistoryItem(JobTitle title, DateTime changeDate) {
+            Title = title;
+            ChangeDate = changeDate;
+        }
+
+        public JobHistoryItem() {
+        }
     }
 }

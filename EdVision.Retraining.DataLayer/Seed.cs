@@ -23,28 +23,12 @@ namespace EdVision.Retraining.DataLayer {
             var competency5 = new Competency("Competency 5", CompetencyType.Range);
             var competency6 = new Competency("Competency 6", CompetencyType.Range);
             retrainingContext.Competencies.AddRange(competency1, competency2, competency3, competency4, competency5, competency6);
-            
 
-            var employee1 = new Employee("A", "A", "A");
-            employee1.Competencies.Add(new EmployeeCompetency(competency1, 0.5));
-            employee1.Competencies.Add(new EmployeeCompetency(competency2, 0.75));
-            retrainingContext.Add(employee1);
 
-            var employee2 = new Employee("B", "B", "B");
-            retrainingContext.Add(new EmployeeCompetency(competency1, 0.75));
-            retrainingContext.Add(new EmployeeCompetency(competency3, 0.5));
-            retrainingContext.Add(employee2);
-
-            var employee3 = new Employee("C", "C", "C");
-            employee3.Competencies.Add(new EmployeeCompetency(competency2, 0.75));
-            employee3.Competencies.Add(new EmployeeCompetency(competency3, 0.25));
-            retrainingContext.Add(employee3);
-
-            var employee4 = new Employee("D", "D", "D");
-            employee4.Competencies.Add(new EmployeeCompetency(competency2, 1));
-            employee4.Competencies.Add(new EmployeeCompetency(competency4, 1));
-            retrainingContext.Add(employee4);
-
+            var baseJob = new JobTitle("Base Job", direction3);
+            baseJob.RequiredCompetency.Add(new JobTitleCompetency(competency2, 0.5, 1));
+            baseJob.RequiredCompetency.Add(new JobTitleCompetency(competency4, 1, 1));
+            retrainingContext.Add(baseJob);
 
             var jobTitle1 = new JobTitle("Job 1", direction1);
             jobTitle1.RequiredCompetency.Add(new JobTitleCompetency(competency1, 0.5, 1));
@@ -86,6 +70,33 @@ namespace EdVision.Retraining.DataLayer {
             course4.RequiredCompetencies.Add(new CourseInCompetency(competency1, 0));
             course4.OutputCompetencies.Add(new CourseOutCompetency(competency1, 0.25));
             retrainingContext.Add(course4);
+
+
+            var employee1 = new Employee("A", "A", "A", new DateTime(1970, 1, 1), 0.2, 0.9);
+            employee1.Competencies.Add(new EmployeeCompetency(competency1, 0.5));
+            employee1.Competencies.Add(new EmployeeCompetency(competency2, 0.75));
+            employee1.JobHistory.Add(new JobHistoryItem(baseJob, new DateTime(1990, 1, 1)));
+            retrainingContext.Add(employee1);
+
+            var employee2 = new Employee("B", "B", "B", new DateTime(1970, 1, 1), 0.25, 0.7);
+            employee2.Competencies.Add(new EmployeeCompetency(competency1, 0.75));
+            employee2.Competencies.Add(new EmployeeCompetency(competency3, 0.5));
+            employee1.JobHistory.Add(new JobHistoryItem(baseJob, new DateTime(1990, 1, 1)));
+            retrainingContext.Add(employee2);
+
+            var employee3 = new Employee("C", "C", "C", new DateTime(1970, 1, 1), 0.8, 0.8);
+            employee3.Competencies.Add(new EmployeeCompetency(competency2, 0.75));
+            employee3.Competencies.Add(new EmployeeCompetency(competency3, 0.25));
+            employee1.JobHistory.Add(new JobHistoryItem(baseJob, new DateTime(1990, 1, 1)));
+            retrainingContext.Add(employee3);
+
+            var employee4 = new Employee("D", "D", "D", new DateTime(1970, 1, 1), 0.2, 0.2);
+            employee4.Competencies.Add(new EmployeeCompetency(competency2, 1));
+            employee4.Competencies.Add(new EmployeeCompetency(competency4, 1));
+            employee1.JobHistory.Add(new JobHistoryItem(baseJob, new DateTime(1990, 1, 1)));
+            retrainingContext.Add(employee4);
+
+
             retrainingContext.SaveChanges();
         }
     }

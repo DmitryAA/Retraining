@@ -17,7 +17,7 @@ namespace EdVision.Retraining.Model {
         [Required]
         public string LastName { get; set; }
         [Required]
-        public DateTime DateOfBirth { get; set; } = DateTime.Now;
+        public DateTime DateOfBirth { get; set; }
 
         [Required]
         public double FiringProbability { get; set; }
@@ -28,7 +28,7 @@ namespace EdVision.Retraining.Model {
         public ICollection<EmployeeCompetency> Competencies { get; }
         public ICollection<CoursePassingResult> CourseResults { get; }
 
-        public Employee(string firstName, string middleName, string lastName): this() {
+        public Employee(string firstName, string middleName, string lastName, DateTime dateOfBirth, double firingProbability, double efficency): this() {
             FirstName = firstName;
             MiddleName = middleName;
             LastName = lastName;
