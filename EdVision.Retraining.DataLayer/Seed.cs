@@ -72,25 +72,25 @@ namespace EdVision.Retraining.DataLayer {
             retrainingContext.Add(course4);
 
 
-            var employee1 = new Employee("A", "A", "A", new DateTime(1970, 1, 1), 0.2, 0.9);
+            var employee1 = new Employee("A", "A", "A", new DateTime(1970, 1, 1), 0.2, 0.9, 1.0);
             employee1.Competencies.Add(new EmployeeCompetency(competency1, 0.5));
             employee1.Competencies.Add(new EmployeeCompetency(competency2, 0.75));
             employee1.JobHistory.Add(new JobHistoryItem(baseJob, new DateTime(1990, 1, 1)));
             retrainingContext.Add(employee1);
 
-            var employee2 = new Employee("B", "B", "B", new DateTime(1970, 1, 1), 0.25, 0.7);
+            var employee2 = new Employee("B", "B", "B", new DateTime(1970, 1, 1), 0.25, 0.7, 1.0);
             employee2.Competencies.Add(new EmployeeCompetency(competency1, 0.75));
             employee2.Competencies.Add(new EmployeeCompetency(competency3, 0.5));
             employee1.JobHistory.Add(new JobHistoryItem(baseJob, new DateTime(1990, 1, 1)));
             retrainingContext.Add(employee2);
 
-            var employee3 = new Employee("C", "C", "C", new DateTime(1970, 1, 1), 0.8, 0.8);
+            var employee3 = new Employee("C", "C", "C", new DateTime(1970, 1, 1), 0.8, 0.8, 1.0);
             employee3.Competencies.Add(new EmployeeCompetency(competency2, 0.75));
             employee3.Competencies.Add(new EmployeeCompetency(competency3, 0.25));
             employee1.JobHistory.Add(new JobHistoryItem(baseJob, new DateTime(1990, 1, 1)));
             retrainingContext.Add(employee3);
 
-            var employee4 = new Employee("D", "D", "D", new DateTime(1970, 1, 1), 0.2, 0.2);
+            var employee4 = new Employee("D", "D", "D", new DateTime(1970, 1, 1), 0.2, 0.2, 1.0);
             employee4.Competencies.Add(new EmployeeCompetency(competency2, 1));
             employee4.Competencies.Add(new EmployeeCompetency(competency4, 1));
             employee1.JobHistory.Add(new JobHistoryItem(baseJob, new DateTime(1990, 1, 1)));
