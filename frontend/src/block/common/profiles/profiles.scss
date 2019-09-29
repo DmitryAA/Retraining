@@ -1,0 +1,11 @@
+@import "~style";
+
+$block-name: 'b-profiles';
+
+.#{$block-name} {
+	@include container();
+
+	&__col {
+		@include xy-cell(12);
+	}
+}

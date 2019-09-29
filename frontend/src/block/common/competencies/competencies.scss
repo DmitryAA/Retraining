@@ -1,0 +1,25 @@
+@import "~style";
+
+$block-name: 'b-competencies';
+
+.#{$block-name} {
+	&__list {
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		padding: 20px;
+	}
+
+	&__bar {
+		width: 166px;
+		height: 24px;
+		background: #e5e5e5;
+		display: inline-block;
+		margin-right: 10px;
+		vertical-align: bottom;
+	}
+
+	&__level {
+		height: 100%;
+		background: #2ee240;
+		transition: all 10s;
+	}
+}

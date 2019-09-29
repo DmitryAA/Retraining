@@ -1,0 +1,51 @@
+@import "~style";
+
+$block-name: 'b-alternatives';
+
+.#{$block-name} {
+	@include container();
+
+	&__info {
+		@include xy-cell(12);
+	}
+
+	&__item {
+		@include xy-cell(4);
+
+		background-color: $color-accent;
+		padding: 20px;
+		color: $color-white;
+		cursor: pointer;
+		transition: all 0.5s;
+
+		&:hover {
+			border-radius: 25px;
+		}
+	}
+
+	&__overlay {
+		padding: 20px;
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		background: rgba(45, 46, 57, 0.6);
+	}
+
+	&__popup {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		padding: 20px;
+		background: $color-white;
+	}
+
+	&__course {
+		@include xy-cell(4);
+
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		padding: 15px;
+	}
+}

@@ -1,0 +1,42 @@
+{# @var string name #}
+{# @var string education #}
+<div class="{{ block }}">
+	<div class="{{ block.elem('middle') }}">
+		<div class="{{ block.elem('row') }}">
+			<div class="{{ block.elem('info') }}">
+				<div class="{{ block.elem('row') }}">
+					<div class="{{ block.elem('photo') }}">
+						<img src="https://via.placeholder.com/140x140?text=No photo">
+					</div>
+					<div class="{{ block.elem('who') }}">
+						<h1>{{ name }}</h1>
+						{{ who }}
+					</div>
+				</div>
+				<div class="{{ block.elem('card') }}">
+					<h2>Образование</h2>
+					{{ education }}
+					<h2>Повышение квалификации</h2>
+					<table>
+						{% for item in courses %}
+							<tr>
+								<td>{{ item.title }}</td>
+								<td>{{ item.year }}&nbsp;год</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+			<div class="{{ block.elem('competencies') }}">
+				<div id="competencies">
+					<competencies></competencies>
+				</div>
+			</div>
+		</div>
+		<div class="{{ block.elem('professions') }}">
+			<div id="alternatives">
+				<alternatives></alternatives>
+			</div>
+		</div>
+	</div>
+</div>

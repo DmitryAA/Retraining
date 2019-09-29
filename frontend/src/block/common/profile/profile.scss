@@ -1,0 +1,35 @@
+@import "~style";
+
+$block-name: 'b-profile';
+
+.#{$block-name} {
+	@include container();
+
+	&__row {
+		align-items: stretch;
+	}
+
+	&__info {
+		@include xy-cell(6);
+	}
+
+	&__competencies {
+		@include xy-cell(6);
+
+		padding: 20px;
+	}
+
+	&__photo {
+		@include xy-cell(2 of 6);
+	}
+
+	&__who {
+		@include xy-cell(4 of 6);
+	}
+
+	&__card {
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+		margin: 40px 0;
+		padding: 20px;
+	}
+}

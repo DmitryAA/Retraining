@@ -1,0 +1,6 @@
+{
+    "require": {
+        "techart/frontend-api": "3.0.0",
+        "mikecao/flight": "^1.3"
+    },
+}
