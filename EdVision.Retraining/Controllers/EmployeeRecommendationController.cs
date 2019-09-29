@@ -26,11 +26,13 @@ namespace EdVision.Retraining.API{
             context.JobTitleRecommendations.Load();
             var recommendation = context.JobTitleRecommendations
                 .Where(r => r.Employee.Id == id)
-                .OrderBy(r => r.TimeStamp)
-                .LastOrDefault();
-            if (recommendation == null) {
+                .OrderByDescending(r => r.TimeStamp).ThenBy(r => r.Distance)
+                .Take(5)
+                .ToList();
+            if (recommendation.Count == 0) {
                 return NoContent();
             }
+            var result = new EmployePositionRecommendation(recommendation[0].Employee, recommendation.Select(r => new PositionRecommendation(r.JobTitle, r.CoursesToLearn)));
             return Ok(recommendation);
         }
 
