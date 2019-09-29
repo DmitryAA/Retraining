@@ -23,17 +23,29 @@ namespace EdVision.Retraining.API{
         // GET api/values/5
         [HttpGet("{id}")]
         public async Task<ActionResult<EmployePositionRecommendation>> Get(int id) {
-            context.JobTitleRecommendations.Load();
+           //context.JobTitleRecommendations.Load();
             var recommendation = context.JobTitleRecommendations
+                .Include(r => r.Employee)
+                .Include(r => r._CourseToJobTitleRecommendationMappings).ThenInclude(m => m.Course)
+                .Include(r => r.JobTitle)
                 .Where(r => r.Employee.Id == id)
                 .OrderByDescending(r => r.TimeStamp).ThenBy(r => r.Distance)
                 .Take(5)
                 .ToList();
+
+            var employee = context.Employees
+                .Include(e => e.CourseResults)
+                    .ThenInclude(cr => cr.Course)
+                .Include(e => e.JobHistory)
+                    .ThenInclude(jh => jh.Title)
+                .Include(e => e.Competencies)
+                    .ThenInclude(e => e.Competency)
+                .FirstOrDefault(e => e.Id == recommendation[0].Employee.Id);
             if (recommendation.Count == 0) {
                 return NoContent();
             }
-            var result = new EmployePositionRecommendation(recommendation[0].Employee, recommendation.Select(r => new PositionRecommendation(r.JobTitle, r.CoursesToLearn)));
-            return Ok(recommendation);
+            var result = new EmployePositionRecommendation(employee, recommendation.Select(r => new PositionRecommendation(r.JobTitle, r.CoursesToLearn)));
+            return Ok(result);
         }
 
 
