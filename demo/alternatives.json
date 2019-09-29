@@ -119,11 +119,104 @@
 					"type": 1
 				},
 				"level": 0.4
+			},
+			{
+				"id": 90,
+				"competency": {
+					"id": 1,
+					"name": "Competency 3",
+					"type": 1
+				},
+				"level": 0.8
+			},
+			{
+				"id": 91,
+				"competency": {
+					"id": 1,
+					"name": "Competency 4",
+					"type": 1
+				},
+				"level": 0.1
+			},
+			{
+				"id": 92,
+				"competency": {
+					"id": 1,
+					"name": "Competency 5",
+					"type": 1
+				},
+				"level": 1.0
 			}
 		],
 		"courseResults": []
 	},
 	"recommendations": [
+		{
+			"position": {
+				"id": 3,
+				"name": "Job 2",
+				"direction": {
+					"id": 1,
+					"name": "Direction 1"
+				},
+				"isObsolete": false,
+				"requiredCompetency": [
+					{
+						"id": 5,
+						"competency": {
+							"id": 5,
+							"name": "Competency 5",
+							"type": 1
+						},
+						"level": 0.5,
+						"weight": 1.0
+					},
+					{
+						"id": 6,
+						"competency": {
+							"id": 6,
+							"name": "Competency 6",
+							"type": 1
+						},
+						"level": 0.0,
+						"weight": 1.0
+					}
+				]
+			},
+			"courses": [
+				{
+					"id": 3,
+					"name": "Course 3",
+					"direction": {
+						"id": 3,
+						"name": "Direction 3"
+					},
+					"price": 100.0,
+					"requiredCompetencies": [
+						{
+							"id": 3,
+							"competency": {
+								"id": 3,
+								"name": "Competency 3",
+								"type": 1
+							},
+							"level": 0.25
+						}
+					],
+					"outputCompetencies": [
+						{
+							"id": 3,
+							"competency": {
+								"id": 3,
+								"name": "Competency 3",
+								"type": 1
+							},
+							"level": 0.5
+						}
+					]
+				}
+			]
+		},
 		{
 			"position": {
 				"id": 2,
@@ -203,100 +296,6 @@
 								"type": 1
 							},
 							"level": 0.5
-						}
-					]
-				}
-			]
-		},
-		{
-			"position": {
-				"id": 3,
-				"name": "Job 2",
-				"direction": {
-					"id": 1,
-					"name": "Direction 1"
-				},
-				"isObsolete": false,
-				"requiredCompetency": [
-					{
-						"id": 5,
-						"competency": {
-							"id": 5,
-							"name": "Competency 5",
-							"type": 1
-						},
-						"level": 0.5,
-						"weight": 1.0
-					},
-					{
-						"id": 6,
-						"competency": {
-							"id": 6,
-							"name": "Competency 6",
-							"type": 1
-						},
-						"level": 0.0,
-						"weight": 1.0
-					}
-				]
-			},
-			"courses": [
-				{
-					"id": 3,
-					"name": "Course 3",
-					"direction": {
-						"id": 3,
-						"name": "Direction 3"
-					},
-					"price": 100.0,
-					"requiredCompetencies": [
-						{
-							"id": 3,
-							"competency": {
-								"id": 3,
-								"name": "Competency 3",
-								"type": 1
-							},
-							"level": 0.25
-						}
-					],
-					"outputCompetencies": [
-						{
-							"id": 3,
-							"competency": {
-								"id": 3,
-								"name": "Competency 3",
-								"type": 1
-							},
-							"level": 0.5
-						}
-					]
-				},
-				{
-					"id": 4,
-					"name": "Course 4",
-					"direction": null,
-					"price": 100.0,
-					"requiredCompetencies": [
-						{
-							"id": 4,
-							"competency": {
-								"id": 1,
-								"name": "Competency 1",
-								"type": 1
-							},
-							"level": 0.0
-						}
-					],
-					"outputCompetencies": [
-						{
-							"id": 4,
-							"competency": {
-								"id": 1,
-								"name": "Competency 1",
-								"type": 1
-							},
-							"level": 0.25
 						}
 					]
 				}
