@@ -42,6 +42,7 @@ namespace EdVision.Retraining.API{
                 result.Add(new JobTitleRecommendation(
                     context.Employees.Find(item.EmployeeId),
                     context.JobTitles.Find(item.PositionId),
+                    item.Distance,
                     context.Courses.Where(c => item.CourseIds.Contains(c.Id))));
             }
             context.AddRange(result);

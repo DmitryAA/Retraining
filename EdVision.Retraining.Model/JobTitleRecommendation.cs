@@ -17,14 +17,16 @@ namespace EdVision.Retraining.Model {
         public Employee Employee { get; set; }
         [Required]
         public JobTitle JobTitle { get; set; }
-
+        [Required]
+        public double Distance { get; set; }
         public IReadOnlyList<Course> CoursesToLearn => _CourseToJobTitleRecommendationMappings.Select(m => m.Course).ToList();
 
         [JsonIgnore]
         public List<CourseToJobTitleRecommendationMapping> _CourseToJobTitleRecommendationMappings { get; }
 
-        public JobTitleRecommendation(Employee employee, JobTitle jobTitle, IEnumerable<Course> courses) {
+        public JobTitleRecommendation(Employee employee, JobTitle jobTitle, double distance, IEnumerable<Course> courses) {
             Employee = employee;
+            Distance = distance;
             JobTitle = jobTitle;
             TimeStamp = DateTime.Now;
             _CourseToJobTitleRecommendationMappings = courses.Select(c =>
