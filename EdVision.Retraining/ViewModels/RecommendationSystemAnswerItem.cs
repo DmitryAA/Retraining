@@ -2,6 +2,7 @@
 
 namespace EdVision.Retraining.API {
     public class RecommendationSystemAnswerItem {
+        public int EmployeeId { get; set; }
         public int PositionId { get; set; }
         public List<int> CourseIds { get; set; }
 

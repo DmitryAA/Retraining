@@ -37,11 +37,14 @@ namespace EdVision.Retraining.API{
 
         [HttpPost]
         public ActionResult Post([FromBody] List<RecommendationSystemAnswerItem> items) {
-            foreach(RecommendationSystemAnswerItem item in items) {
-                context.Add(new JobTitleRecommendation(
+            List<JobTitleRecommendation> result = new List<JobTitleRecommendation>();
+            foreach (RecommendationSystemAnswerItem item in items) {
+                result.Add(new JobTitleRecommendation(
+                    context.Employees.Find(item.EmployeeId),
                     context.JobTitles.Find(item.PositionId),
                     context.Courses.Where(c => item.CourseIds.Contains(c.Id))));
             }
+            context.AddRange(result);
             context.SaveChanges();
             return Ok();
         }

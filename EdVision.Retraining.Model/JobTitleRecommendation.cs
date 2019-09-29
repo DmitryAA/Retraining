@@ -11,15 +11,20 @@ namespace EdVision.Retraining.Model {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Required]
         public DateTime TimeStamp { get; set; }
+        [Required]
         public Employee Employee { get; set; }
+        [Required]
         public JobTitle JobTitle { get; set; }
+
         public IReadOnlyList<Course> CoursesToLearn => _CourseToJobTitleRecommendationMappings.Select(m => m.Course).ToList();
 
         [JsonIgnore]
         public List<CourseToJobTitleRecommendationMapping> _CourseToJobTitleRecommendationMappings { get; }
 
-        public JobTitleRecommendation(JobTitle jobTitle, IEnumerable<Course> courses) {
+        public JobTitleRecommendation(Employee employee, JobTitle jobTitle, IEnumerable<Course> courses) {
+            Employee = employee;
             JobTitle = jobTitle;
             TimeStamp = DateTime.Now;
             _CourseToJobTitleRecommendationMappings = courses.Select(c =>
