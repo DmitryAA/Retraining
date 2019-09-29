@@ -24,6 +24,7 @@ namespace EdVision.Retraining {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
+            services.AddDbContext<RetrainingContext>(opt => opt
                 .UseInMemoryDatabase("RetrainingDb")
                 .EnableSensitiveDataLogging());
             services.AddPositionRecommendationDataProvider(new TimeSpan(2, 0, 0));
