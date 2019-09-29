@@ -17,55 +17,57 @@ namespace EdVision.Retraining.API {
     }
 
     public interface IPositionRecommendationDataProvider {
-        Task<EmployeProfessionRecommendation> Get(int employeeId);
+        Task<EmployePositionRecommendation> Get(int employeeId);
     }
 
     public class PositionRecommendationDataProvider: IPositionRecommendationDataProvider {
         RequestStringBuilder requestStringBuilder;
-        TemporaryCashe<int, EmployeProfessionRecommendation> cashe;
+        TemporaryCashe<int, EmployePositionRecommendation> cashe;
         RetrainingContext context;
 
         public PositionRecommendationDataProvider(TimeSpan casheActuality, RetrainingContext context) {
             this.requestStringBuilder = new RequestStringBuilder();
-            this.cashe = new TemporaryCashe<int, EmployeProfessionRecommendation>(casheActuality);
+            this.cashe = new TemporaryCashe<int, EmployePositionRecommendation>(casheActuality);
             this.context = context;
         }
 
-        public async Task<EmployeProfessionRecommendation> Get(int employeeId) {
-            EmployeProfessionRecommendation vm = cashe[employeeId];
+        public async Task<EmployePositionRecommendation> Get(int employeeId) {
+            EmployePositionRecommendation vm = cashe[employeeId];
             if (vm != null) return vm;
 
-            var recommendations = await Task.Run(() => {
             var courses = context.LoadCourses();
             var positions = context.LoadPositions();
             var employee = context.LoadEmpoyees().FirstOrDefault(e => e.Id == employeeId);
             if (employee == null) return null;
 
-            return new EmployeProfessionRecommendation(
-                employee,
-                new List<PositionRecommendation> {
-                    new PositionRecommendation(
-                            context.JobTitles.Find(2),
-                            new List<Course> {
-                                courses.FirstOrDefault(c => c.Id == 1), courses.FirstOrDefault(c => c.Id == 2)
-                            }),
-                    new PositionRecommendation(
-                            context.JobTitles.Find(3),
-                            new List<Course> {
-                                courses.FirstOrDefault(c => c.Id == 3), courses.FirstOrDefault(c => c.Id == 4)
-                            })
-                });
-            });
-            cashe[employeeId] = recommendations;
-            return recommendations;
+            List<RecommendationSystemAnswerItem> recommendationSystemAnswers = await Request<List<RecommendationSystemAnswerItem>>(requestStringBuilder.GetEmployeeRecomendation(employeeId));
+            List<PositionRecommendation> positionRecommendations = recommendationSystemAnswers.Select(
+                a => new PositionRecommendation(
+                    positions.First(p => p.Id == a.PositionId),
+                    courses.Where(c => a.CourseIds.Contains(c.Id))
+                )
+            ).ToList();
+            var employePositionRecommendation = new EmployePositionRecommendation(employee, positionRecommendations);
+
+
+            cashe[employeeId] = employePositionRecommendation;
+            return employePositionRecommendation;
         }
 
-        private async Task<T> Request<T>(string requestString) {
-            using (var httpClient = new HttpClient()) {
-                string json = await httpClient.GetStringAsync(requestString);
-                return Deserialize<T>(json);
-            }
+        //private async Task<T> Request<T>(string requestString) {
+        //using (var httpClient = new HttpClient()) {
+        //    string json = await httpClient.GetStringAsync(requestString);
+        //    return Deserialize<T>(json);
+        //}
+        //}
+
+        private Task<List<RecommendationSystemAnswerItem>> Request<T>(string requestString) {
+            return Task.FromResult(new List<RecommendationSystemAnswerItem> {
+                new RecommendationSystemAnswerItem(1, new List<int> { 1, 2 }),
+                new RecommendationSystemAnswerItem(2, new List<int> { 3, 4 })
+            });
         }
+        
 
         private T Deserialize<T>(string jsonString) {
             return JsonConvert.DeserializeObject<T>(jsonString, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });

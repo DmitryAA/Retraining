@@ -12,22 +12,39 @@ namespace EdVision.Retraining.API{
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeRecommendationController : ControllerBase {
-        IPositionRecommendationDataProvider dataProvider;
+        //IPositionRecommendationDataProvider dataProvider;
+        RetrainingContext context;
 
-        public EmployeeRecommendationController(IPositionRecommendationDataProvider dataProvider) {
-            this.dataProvider = dataProvider;
+        public EmployeeRecommendationController(RetrainingContext context/*IPositionRecommendationDataProvider dataProvider*/) {
+            //this.dataProvider = dataProvider;
+            this.context = context;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<EmployeProfessionRecommendation>> Get(int id) {
-            EmployeProfessionRecommendation employeeRecommendations = await dataProvider.Get(id);
-            if (employeeRecommendations == null) {
-                NoContent();
+        public async Task<ActionResult<EmployePositionRecommendation>> Get(int id) {
+            context.JobTitleRecommendations.Load();
+            var recommendation = context.JobTitleRecommendations
+                .Where(r => r.Employee.Id == id)
+                .OrderBy(r => r.TimeStamp)
+                .LastOrDefault();
+            if (recommendation == null) {
+                return NoContent();
             }
-            return Ok(employeeRecommendations);
+            return Ok(recommendation);
         }
 
+
+        [HttpPost]
+        public ActionResult Post([FromBody] List<RecommendationSystemAnswerItem> items) {
+            foreach(RecommendationSystemAnswerItem item in items) {
+                context.Add(new JobTitleRecommendation(
+                    context.JobTitles.Find(item.PositionId),
+                    context.Courses.Where(c => item.CourseIds.Contains(c.Id))));
+            }
+            context.SaveChanges();
+            return Ok();
+        }
         //// DELETE api/values/5
         //[HttpDelete("{id}")]
         //public void Delete(int id) {
