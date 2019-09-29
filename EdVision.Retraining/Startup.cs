@@ -24,12 +24,14 @@ namespace EdVision.Retraining {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddDbContext<RetrainingContext>(opt => {
-                opt.UseInMemoryDatabase("RetrainingDb");
-                opt.EnableSensitiveDataLogging();
-            });
+                .UseInMemoryDatabase("RetrainingDb")
+                .EnableSensitiveDataLogging());
             services.AddPositionRecommendationDataProvider(new TimeSpan(2, 0, 0));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AutomaticAuthentication = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

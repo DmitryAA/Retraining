@@ -6,22 +6,17 @@ using Microsoft.EntityFrameworkCore;
 namespace EdVision.Retraining.DataLayer {
     public class RetrainingContext : DbContext {
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<EmployeeCompetency> EmployeeCompetencies { get; set; }
         public DbSet<JobTitle> JobTitles { get; set; }
-        public DbSet<JobTitleCompetency> JobTitleCompetencies { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Competency> Competencies { get; set; }
         public DbSet<Direction> Directions { get; set; }
 
+        public DbSet<JobTitleRecommendation> JobTitleRecommendations { get; set; }
 
         public RetrainingContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             base.OnModelCreating(modelBuilder);
-
-            //var competency = modelBuilder.Entity<Competency>();
-            //competency.HasKey(c => c.Id);
-            //competency.Property(c => c.Id).ValueGeneratedOnAdd();
 
             var course = modelBuilder.Entity<Course>();
             course.HasOne(c => c.Direction).WithOne().HasPrincipalKey<Direction>(d => d.Id);
@@ -58,6 +53,14 @@ namespace EdVision.Retraining.DataLayer {
             //jobTitleCompetency.HasKey(c => c.Id);
             //jobTitleCompetency.Property(c => c.Id).ValueGeneratedOnAdd();
             jobTitleCompetency.HasOne(c => c.Competency).WithOne().HasPrincipalKey<Competency>(c => c.Id);
+
+            var jobTitleRecommendation = modelBuilder.Entity<JobTitleRecommendation>();
+            jobTitleRecommendation.HasOne(r => r.Employee).WithMany().HasPrincipalKey(r => r.Id);
+            jobTitleRecommendation.HasOne(r => r.JobTitle).WithMany().HasPrincipalKey(r => r.Id);
+            jobTitleRecommendation.HasMany(r => r._CourseToJobTitleRecommendationMappings).WithOne().HasPrincipalKey(r => r.Id);
+
+            var courseToJobTitleRecommendationMapping = modelBuilder.Entity<CourseToJobTitleRecommendationMapping>();
+            courseToJobTitleRecommendationMapping.HasOne(m => m.Course).WithMany().HasPrincipalKey(c => c.Id);
         }
 
         public List<Employee> LoadEmpoyees() =>
