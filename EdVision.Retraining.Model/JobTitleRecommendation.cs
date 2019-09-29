@@ -13,9 +13,7 @@ namespace EdVision.Retraining.Model {
 
         [Required]
         public DateTime TimeStamp { get; set; }
-        [Required]
         public Employee Employee { get; set; }
-        [Required]
         public JobTitle JobTitle { get; set; }
         [Required]
         public double Distance { get; set; }
