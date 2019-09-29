@@ -19,13 +19,13 @@ namespace EdVision.Retraining.DataLayer {
             base.OnModelCreating(modelBuilder);
 
             var course = modelBuilder.Entity<Course>();
-            course.HasOne(c => c.Direction).WithOne().HasPrincipalKey<Direction>(d => d.Id);
+            course.HasOne(c => c.Direction).WithMany().HasPrincipalKey(d => d.Id);
             course.HasMany(c => c.RequiredCompetencies).WithOne().HasPrincipalKey(c => c.Id);
             course.HasMany(c => c.OutputCompetencies).WithOne().HasPrincipalKey(c => c.Id);
 
             var coursePassingResult = modelBuilder.Entity<CoursePassingResult>();
             //coursePassingResult.Property(c => c.Id).ValueGeneratedOnAdd();
-            coursePassingResult.HasOne(m => m.Course).WithOne().HasPrincipalKey<Course>(c => c.Id);
+            coursePassingResult.HasOne(m => m.Course).WithMany().HasPrincipalKey(c => c.Id);
 
             var direction = modelBuilder.Entity<Direction>();
             //direction.Property(d => d.Id).ValueGeneratedOnAdd();
@@ -41,7 +41,7 @@ namespace EdVision.Retraining.DataLayer {
             var employeeCompetency = modelBuilder.Entity<EmployeeCompetency>();
             //employeeCompetency.HasKey(ec => ec.Id);
             //employeeCompetency.Property(ec => ec.Id).ValueGeneratedOnAdd();
-            employeeCompetency.HasOne(ec => ec.Competency).WithOne().HasPrincipalKey<Competency>(c => c.Id);
+            employeeCompetency.HasOne(ec => ec.Competency).WithMany().HasPrincipalKey(c => c.Id);
 
             var jobTitle = modelBuilder.Entity<JobTitle>();
             //jobTitle.HasKey(t => t.Id);
@@ -52,7 +52,7 @@ namespace EdVision.Retraining.DataLayer {
             var jobTitleCompetency = modelBuilder.Entity<JobTitleCompetency>();
             //jobTitleCompetency.HasKey(c => c.Id);
             //jobTitleCompetency.Property(c => c.Id).ValueGeneratedOnAdd();
-            jobTitleCompetency.HasOne(c => c.Competency).WithOne().HasPrincipalKey<Competency>(c => c.Id);
+            jobTitleCompetency.HasOne(c => c.Competency).WithMany().HasPrincipalKey(c => c.Id);
 
             var jobTitleRecommendation = modelBuilder.Entity<JobTitleRecommendation>();
             jobTitleRecommendation.HasOne(r => r.Employee).WithMany().HasPrincipalKey(r => r.Id);
